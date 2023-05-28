@@ -7,7 +7,6 @@ using namespace std;
 int N;
 int dx[4] = { -1, 1, 0, 0 };
 int dy[4] = { 0, 0, -1, 1 };
-int cnt_recur = 0;
 
 // 유효한 좌표인지 확인한다.
 bool check_valid(int xpos, int ypos)
@@ -20,8 +19,6 @@ bool check_valid(int xpos, int ypos)
 
 void set_area(vector<string>& map, int xpos, int ypos, char color)
 {
-	cnt_recur++;
-
 	// 상하좌우 4가지 방향으로 이동하며 재귀호출을 통한 완전탐색
 	for (int dir = 0; dir < 4; dir++)
 	{
@@ -67,27 +64,6 @@ void find_num_area(vector<string>& normal_map, vector<string>& weak_color_map)
 	cout << normal_cnt << " " << weak_color_cnt << endl;
 }
 
-void print_map(vector<string>& map1, vector<string>& map2)
-{
-	for (int r = 0; r < N; r++)
-	{
-		for (int c = 0; c < N; c++)
-		{
-			cout << map1[r][c];
-		}
-		cout << endl;
-	}
-	cout << "----------------------------" << endl;
-	for (int r = 0; r < N; r++)
-	{
-		for (int c = 0; c < N; c++)
-		{
-			cout << map2[r][c];
-		}
-		cout << endl;
-	}
-}
-
 int main()
 {
 	cin.tie(NULL);
@@ -110,7 +86,5 @@ int main()
 	}
 
 	find_num_area(normal_map, weak_color_map);
-	// print_map(normal_map, weak_color_map);
-	// cout << cnt_recur << endl;
 	return 0;
 }
