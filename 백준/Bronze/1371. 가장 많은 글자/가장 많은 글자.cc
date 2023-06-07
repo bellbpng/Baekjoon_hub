@@ -8,11 +8,8 @@ using namespace std;
 int main()
 {
 	vector<int> alpha_cnt(26, 0);
-	
-	while (true) {
-		string str;
-		cin >> str;
-		if (cin.eof() == true) break;
+	string str;
+	while (getline(cin, str)) {
 		for (int i = 0; i < str.size(); i++) {
 			if(isalpha(str[i]))
 				alpha_cnt[str[i]-'a']++;
