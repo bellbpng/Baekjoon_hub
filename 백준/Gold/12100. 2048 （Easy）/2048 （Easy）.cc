@@ -1,24 +1,24 @@
 #include <iostream>
 #include <vector>
-#include <deque>
+#include <queue>
 using namespace std;
 
-void add_block(vector<int>& org_blocks, deque<int>& added_blocks, int& max_val) {
+void add_block(vector<int>& org_blocks, queue<int>& added_blocks, int& max_val) {
 	// add blocks
 	for (int i = 0; i < org_blocks.size(); i++) {
 		if (i == org_blocks.size() - 1) {
-			added_blocks.push_back(org_blocks[i]);
+			added_blocks.push(org_blocks[i]);
 			break;
 		}
 
 		if (org_blocks[i] == org_blocks[i + 1]) {
 			org_blocks[i] += org_blocks[i + 1];
-			added_blocks.push_back(org_blocks[i]);
+			added_blocks.push(org_blocks[i]);
 			if (max_val < org_blocks[i]) max_val = org_blocks[i];
 			i++;
 		}
 		else {
-			added_blocks.push_back(org_blocks[i]);
+			added_blocks.push(org_blocks[i]);
 		}
 	}
 	org_blocks.clear();
@@ -31,7 +31,7 @@ void move_blocks(vector<vector<int>>& board, int dir, int& max_val) {
 
 	int cnt = 0;
 	vector<int> org_blocks;
-	deque<int> added_blocks;
+	queue<int> added_blocks;
 	// 상하(0,1)는 각 열에 대해서 블록을 이동시키고, 좌우(2,3)은 각 행에 대해서 블록을 이동시킨다.
 	switch (dir) {
 	case 0:
@@ -48,7 +48,7 @@ void move_blocks(vector<vector<int>>& board, int dir, int& max_val) {
 			if (added_blocks.empty()) continue;
 			for (int r = 0; r < n; r++) {
 				nboard[r][c] = added_blocks.front();
-				added_blocks.pop_front();
+				added_blocks.pop();
 				if (added_blocks.empty()) break;
 			}
 		}
@@ -67,7 +67,7 @@ void move_blocks(vector<vector<int>>& board, int dir, int& max_val) {
 			if (added_blocks.empty()) continue;
 			for (int r = n - 1; r >= 0; r--) {
 				nboard[r][c] = added_blocks.front();
-				added_blocks.pop_front();
+				added_blocks.pop();
 				if (added_blocks.empty()) break;
 			}
 		}
@@ -86,7 +86,7 @@ void move_blocks(vector<vector<int>>& board, int dir, int& max_val) {
 			if (added_blocks.empty()) continue;
 			for (int c = 0; c < n; c++) {
 				nboard[r][c] = added_blocks.front();
-				added_blocks.pop_front();
+				added_blocks.pop();
 				if (added_blocks.empty()) break;
 			}
 		}
@@ -105,7 +105,7 @@ void move_blocks(vector<vector<int>>& board, int dir, int& max_val) {
 			if (added_blocks.empty()) continue;
 			for (int c = n - 1; c >= 0; c--) {
 				nboard[r][c] = added_blocks.front();
-				added_blocks.pop_front();
+				added_blocks.pop();
 				if (added_blocks.empty()) break;
 			}
 		}
