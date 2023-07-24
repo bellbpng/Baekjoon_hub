@@ -1,5 +1,5 @@
 #include <string>
-#include <cctype>
+#include <sstream>
 #include <iostream>
 #include <vector>
 
@@ -7,35 +7,31 @@ using namespace std;
 
 int solution(string dartResult) {
     int answer = 0;
+    stringstream ss(dartResult);
     
-    vector<int> scores(3,0);
-    string str;
-    int idx = 0;
-    for(int i=0; i<dartResult.size(); i++){
-        char ch = dartResult[i];
-        if(isdigit(ch)){
-            str.push_back(ch);
+    vector<int> scores(3, 0);
+    int num;
+    char bonus, option;
+    for(int i=0; i<3; i++){
+        ss >> num;
+        bonus = ss.get();
+        option = ss.get();
+        
+        if(option != '*' && option != '#')
+            ss.unget(); // 버퍼의 커서를 앞으로 옮긴다.
+        
+        // 보너스
+        if(bonus=='D') num = num*num;
+        else if(bonus=='T') num = num*num*num;
+        scores[i] = num;
+        
+        // 옵션
+        if(option=='*'){
+            if(i>0) scores[i-1] = scores[i-1] * 2;
+            scores[i] = scores[i]*2;
         }
-        else if(ch=='S' || ch=='D' || ch=='T'){
-            int num = stoi(str);
-            str.clear();
-            if(ch=='D') num = num*num;
-            else if(ch=='T') num = num*num*num;
-            scores[idx] = num;
-            
-            // 스타상, 아차상 확인
-            if(i==dartResult.size()-1) continue;
-            char nCh = dartResult[i+1];
-            if(nCh=='*'){
-                if(idx>0) scores[idx-1] = scores[idx-1] * 2;
-                scores[idx] = scores[idx] * 2;
-                i++;
-            }
-            else if(nCh=='#'){
-                scores[idx] = scores[idx] * (-1);
-                i++;
-            }
-            idx++;
+        else if(option=='#'){
+            scores[i] = scores[i] * (-1);
         }
     }
     
