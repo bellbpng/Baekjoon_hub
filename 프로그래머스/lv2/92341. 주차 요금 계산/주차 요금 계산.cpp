@@ -47,19 +47,18 @@ vector<int> solution(vector<int> fees, vector<string> records) {
     vector<int> answer;
     vector<pair<int, int>> inArr, outArr;
     // parsing
-    string state, time, hour, min;
+    string state, time, hour, min, scarNum;
     int carNum;
     stringstream ss;
     for(int i=0; i<records.size(); i++){
         ss.clear();
         ss.str(records[i]);
-        ss >> time; ss.get();
+        ss >> time >> scarNum >> state;
         hour.push_back(time[0]), hour.push_back(time[1]);
         min.push_back(time[3]), min.push_back(time[4]);
         int tMin = stoi(hour)*60 + stoi(min);
         hour.clear(); min.clear();
-        ss >> carNum; ss.get();
-        ss >> state;
+        carNum = stoi(scarNum);
         if(state=="IN"){
             inArr.push_back(make_pair(carNum, tMin));
         }
@@ -82,7 +81,6 @@ vector<int> solution(vector<int> fees, vector<string> records) {
             answer.push_back(totalFee);
         }
     }
-    
-    
+
     return answer;
 }
