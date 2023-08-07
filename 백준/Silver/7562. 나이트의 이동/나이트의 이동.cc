@@ -1,53 +1,52 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <queue>
 using namespace std;
 
-struct MyPair { int x, y; MyPair(int a, int b) :x(a), y(b) {} };
-vector<pair<int, int>> moveCmd = { {-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{1, -2},{-1, -2},{-2, -1} };
+int knightMove[8][2] = { {-1, -2}, {-2,-1}, {-2,1}, {-1,2}, {1,2}, {2,1}, {2,-1}, {1,-2} };
 
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
 
-	int testcase;
-	cin >> testcase;
+typedef struct _posInfo {
+	int x;
+	int y;
+} Pos;
 
-	while (testcase--)
-	{
-		int N, x, y, a, b;
-		cin >> N >> x >> y >> a >> b;
+void Bfs(int curX, int curY, int targetX, int targetY, int l) {
+	vector<vector<int>> board(l, vector<int>(l, 100000));
+	queue<Pos> q;
+	board[curX][curY] = 0;
+	q.push({ curX, curY });
 
-		vector<vector<int>> field(N, vector<int>(N, 100000));
-		queue<MyPair> q;
-
-		field[x][y] = 0;
-		q.push({ x,y });
-
-		while (!q.empty())
-		{
-			MyPair curr = q.front();
-			q.pop();
-
-			for (auto& move : moveCmd)
-			{
-				int nextX = curr.x + move.first;
-				int nextY = curr.y + move.second;
-
-				if ((0 <= nextX && nextX < N) && (0 <= nextY && nextY < N))
-				{
-					if (field[nextX][nextY] > field[curr.x][curr.y] + 1)
-					{
-						field[nextX][nextY] = field[curr.x][curr.y] + 1;
-						q.push({ nextX, nextY });
-					}
+	while (!q.empty()) {
+		Pos cpos = q.front();
+		q.pop();
+		for (int dir = 0; dir < 8; dir++) {
+			int nextX = cpos.x + knightMove[dir][0];
+			int nextY = cpos.y + knightMove[dir][1];
+			if (nextX >= 0 && nextX < l && nextY >= 0 && nextY < l) {
+				if (board[nextX][nextY] > board[cpos.x][cpos.y]+1) {
+					board[nextX][nextY] = board[cpos.x][cpos.y] + 1;
+					q.push({ nextX, nextY });
 				}
 			}
 		}
-
-		cout << field[a][b] << '\n';
 	}
+	printf("%d\n", board[targetX][targetY]);
+}
 
+
+int main()
+{
+	cin.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	int T;
+	scanf("%d", &T);
+
+	for (int testCase = 0; testCase < T; testCase++) {
+		int l, curX, curY, targetX, targetY;
+		scanf("%d %d %d %d %d", &l, &curX, &curY, &targetX, &targetY);
+		Bfs(curX, curY, targetX, targetY, l);
+	}
 	return 0;
 }
