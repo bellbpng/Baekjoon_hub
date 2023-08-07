@@ -18,10 +18,10 @@ int Bfs(int curX, int curY, int targetX, int targetY, int l) {
 	vector<vector<bool>> visited(l, vector<bool>(l, false));
 	queue<Pos> q;
 	q.push({ curX, curY, 0 });
+	visited[curX][curY] = true;
 
 	while (!q.empty()) {
 		Pos cpos = q.front();
-		visited[cpos.x][cpos.y] = true;
 		q.pop();
 		if (cpos.x == targetX && cpos.y == targetY) return cpos.idx;
 
