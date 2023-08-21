@@ -11,13 +11,6 @@ int dx[4] = { -1, 1, 0, 0 };
 int dy[4] = { 0, 0, -1, 1 };
 int ans = 0;
 
-void printBoard() {
-	printf("----------------------\n");
-	for (int r = 0; r < 12; r++) {
-		cout << board[r] << endl;
-	}
-}
-
 void popPuyo(int x, int y, bool& flag) {
 	int cnt = 1;
 	char curColor = board[x][y];
@@ -78,12 +71,10 @@ bool playPuyo() {
 			popPuyo(r, c, flag);
 		}
 	}
-	// printBoard();
 	if (flag == false) return false;
 	
 	ans++;
 	setGravity();
-	// printBoard();
 	return true;
 }
 
