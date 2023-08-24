@@ -12,24 +12,6 @@ vector<int> colList[100];
 int countRowTable[100][101]; // countRowTable[idx][num] 은 idx번 rowList 배열의 num 이 등장한 횟수
 int countColTable[100][101];
 
-void printRowList() {
-	printf("----------Row List---------------\n");
-	for (int r = 0; r < rowNum; r++) {
-		for(auto ele:rowList[r])
-			printf("%d ", ele);
-		printf("\n");
-	}
-}
-
-void printColList() {
-	printf("----------Col List---------------\n");
-	for (int c = 0; c < colNum; c++) {
-		for (auto ele : colList[c])
-			printf("%d ", ele);
-		printf("\n");
-	}
-}
-
 // rowNum >= colNum 인 경우
 void operatorR() {
 	vector<pair<int, int>> list;
