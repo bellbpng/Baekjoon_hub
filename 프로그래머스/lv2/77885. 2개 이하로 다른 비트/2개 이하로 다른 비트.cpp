@@ -26,7 +26,7 @@ vector<long long> solution(vector<long long> numbers) {
             data <<= cnt;
             data = data | num;
             mask <<= (cnt - 1);
-            data ^= mask; // 0 옆 비트를 1로
+            data -= mask; // 0 옆 비트를 1로
             answer.push_back(data);
         }
     }
