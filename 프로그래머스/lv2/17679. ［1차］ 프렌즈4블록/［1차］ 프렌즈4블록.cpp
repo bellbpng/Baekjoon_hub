@@ -1,18 +1,10 @@
 #include <string>
 #include <vector>
-#include <iostream>
-#include <memory.h>
-#include <queue>
-
 using namespace std;
 
 int movement[3][2] = {{0,1}, {1,0}, {1,1}};
-int dx[4] = {-1, 1, 0, 0};
-int dy[4] = {0, 0, -1, 1};
 vector<string> cboard;
-bool visited[30][30];
-int N, M;
-int ans;
+int N, M, ans;
 
 bool checkFourBlock(int x, int y){
     char ch = cboard[x][y];
@@ -61,8 +53,8 @@ bool setRemoveBlock(){
 }
 
 void moveDownBlocks(){
-    char nboard[30][30];
-    memset(nboard, 0, sizeof(nboard));
+    string str = string(M, '*');
+    vector<string> nboard(N, str);
     
     for(int c=0; c<M; c++){
         int curR = N-1;
@@ -72,20 +64,7 @@ void moveDownBlocks(){
         }
     }
     
-    // 빈칸 채우기
-    for(int r=0; r<N; r++){
-        for(int c=0; c<M; c++){
-            if(nboard[r][c]==0) 
-                nboard[r][c]='*';
-        }
-    }
-    
-    for(int r=0; r<N; r++){
-        cboard[r].clear();
-        for(int c=0; c<M; c++){
-            cboard[r].push_back(nboard[r][c]);
-        }
-    }
+    cboard = nboard;
 }
 
 int solution(int m, int n, vector<string> board) {
