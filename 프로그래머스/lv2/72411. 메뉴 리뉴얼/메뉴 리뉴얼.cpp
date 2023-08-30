@@ -11,11 +11,10 @@ bool cmp(pair<string, int> p1, pair<string, int> p2){
     return p1.second > p2.second;    
 }
 
-void findCombo(map<string, int>& dict, int v, string str, string& menu, int length){
+void findCombo(map<string, int>& dict, int v, string str, string menu, int length){
     if(menu.size()==length){
         // cout << menu << endl;
-        if(dict.find(menu)==dict.end()) dict[menu]=1;
-        else dict[menu]++;
+        dict[menu]++;
         return;
     }
     
@@ -43,8 +42,7 @@ vector<string> solution(vector<string> orders, vector<int> course) {
         if(count[comboNum]<2) continue;
         for(int j=0; j<orders.size(); j++){
             if(orders[j].length() < comboNum) continue;
-            string menu;
-            findCombo(dict, 0, orders[j], menu, comboNum);
+            findCombo(dict, 0, orders[j], "", comboNum);
         }
     }
     
