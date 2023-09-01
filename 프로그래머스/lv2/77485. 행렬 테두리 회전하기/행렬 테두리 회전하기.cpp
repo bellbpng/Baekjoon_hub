@@ -6,14 +6,6 @@ using namespace std;
 int n, m;
 int board[101][101];
 
-void printBoard(int x1, int y1, int x2, int y2){
-    for(int r=x1; r<=x2; r++){
-        for(int c=y1; c<=y2; c++)
-            printf("%d ", board[r][c]);
-        printf("\n");
-    }
-}
-
 int rotateBoard(int x1, int y1, int x2, int y2){
     int nboard[101][101];
     memcpy(nboard, board, sizeof(board));
