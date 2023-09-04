@@ -1,9 +1,7 @@
 #include <string>
 #include <vector>
 #include <memory.h>
-#include <iostream>
 #include <queue>
-#include <algorithm>
 using namespace std;
 
 vector<string> cboard;
@@ -48,13 +46,11 @@ bool search(int sx, int sy){
         // 같은 행에 있는 경우
         if(sx==ele.first){
             int my = (sy + ele.second)/2;
-            // printf("same raw: %d, %d\n", sx, my);
             if(cboard[sx][my]!='X') return false; 
         }
         // 같은 열에 있는 경우
         else if(sy==ele.second){
             int mx = (sx + ele.first)/2;
-            // printf("same col: %d, %d\n", mx, sy);
             if(cboard[mx][sy]!='X') return false;
         }
         // 대각선에 있는 경우
@@ -63,7 +59,6 @@ bool search(int sx, int sy){
             int y1 = ele.second;
             int x2 = ele.first;
             int y2 = sy;
-            // printf("check two points, [%d, %d] and [%d, %d]\n", x1, y1, x2, y2);
             if(cboard[x1][y1]!='X' || cboard[x2][y2]!='X') return false;
         }
     }
